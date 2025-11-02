@@ -10,8 +10,9 @@ body {
 }
 
 .container {
+  position: relative;
   background: #ffffff;
-  border-radius: 14px 0 0 14px; /* flat on right side */
+  border-radius: 14px 0 0 14px;
   padding: 40px;
   box-shadow: 0 8px 25px rgba(0,0,0,0.1);
   width: 420px;
@@ -63,32 +64,14 @@ select:focus {
   background: #005fa3;
 }
 
-.button-group {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  margin-top: 20px;
-}
-.button-group button {
-  flex: 1;
-  border: none;
-  border-radius: 8px;
-  padding: 10px;
-  background: #f1f1f1;
-  cursor: pointer;
-  font-weight: 600;
-}
-.button-group button:hover {
-  background: #0078d4;
-  color: white;
-}
-
 .output {
   background: #fafafa;
   border-radius: 8px;
   margin-top: 20px;
   padding: 20px;
   border: 1px solid #e4e4e4;
+  max-height: 400px; /* optional to limit height */
+  overflow-y: auto; /* enables scrolling */
 }
 
 .route-result {
@@ -107,39 +90,7 @@ select:focus {
 .Blue { color: #0077b6; border-left-color: #0077b6; }
 .Green { color: #2e8b57; border-left-color: #2e8b57; }
 
-@media (max-width: 600px) {
-  .container { width: 90%; padding: 25px; }
-}
-
-/* Tablet responsiveness */
-@media (max-width: 900px) {
-  h1 {
-    font-size: 1.8rem;
-  }
-  .container {
-    width: 80%;
-    padding: 30px;
-  }
-}
-
-/* Mobile responsiveness */
-@media (max-width: 600px) {
-  .container {
-    width: 90%;
-    padding: 20px;
-  }
-  h1 {
-    font-size: 1.5rem;
-  }
-  .button-group {
-    flex-direction: column;
-  }
-  .button-group button {
-    width: 100%;
-  }
-}
-
-/* Small hamburger-style button */
+/* Interchange button */
 #showInterchanges {
   position: absolute;
   top: 20px;
@@ -154,9 +105,7 @@ select:focus {
   font-size: 1.2rem;
   transition: 0.3s;
 }
-#showInterchanges:hover {
-  background: #005fa3;
-}
+
 
 /* Adjust container for relative positioning */
 .container {

@@ -1,37 +1,103 @@
-// Kota Metro graph with unique distances for variety
+// --- Kota Metro Graph ---
 const metro = {
-  "Dhanmandi": [["Gumanpura", 3, "Yellow"], ["Old City", 6, "Green"]],
-  "Gumanpura": [["Dhanmandi", 3, "Yellow"], ["Railway Station", 4, "Yellow"], ["RIBI", 10, "Red"]],
-  "Railway Station": [["Gumanpura", 4, "Yellow"], ["Nayapura", 7, "Yellow"], ["Shastri Nagar", 5, "Blue"]],
-  "Nayapura": [["Railway Station", 7, "Yellow"], ["Chambal Garden", 3, "Yellow"], ["New Bus Stand", 8, "Blue"], ["Aerodrome", 5, "Red"]],
-  "Chambal Garden": [["Nayapura", 3, "Yellow"], ["Kota University", 9, "Yellow"]],
-  "Kota University": [["Chambal Garden", 9, "Yellow"], ["Industrial Area", 6, "Yellow"], ["Kota College", 7, "Green"]],
-  "Industrial Area": [["Kota University", 6, "Yellow"], ["Kota Bus Stand", 5, "Yellow"]],
-  "Kota Bus Stand": [["Industrial Area", 5, "Yellow"], ["Kunhadi", 8, "Red"], ["Borkhera", 6, "Green"]],
-  "Kunhadi": [["Kota Bus Stand", 8, "Red"], ["Aerodrome", 9, "Red"], ["RIBI", 7, "Red"]],
-  "RIBI": [["Kunhadi", 7, "Red"], ["Gumanpura", 10, "Red"]],
-  "Talwandi": [["Dadabari", 4, "Blue"]],
-  "Dadabari": [["Talwandi", 4, "Blue"], ["New Bus Stand", 5, "Blue"], ["Sawai Pura", 7, "Blue"]],
-  "New Bus Stand": [["Dadabari", 5, "Blue"], ["Nayapura", 8, "Blue"], ["Sawai Pura", 6, "Blue"]],
-  "Aerodrome": [["Nayapura", 5, "Red"], ["Kunhadi", 9, "Red"]],
-  "Tower Circle": [["Shastri Nagar", 4, "Blue"], ["Borkhera", 5, "Green"], ["Old City", 7, "Green"]],
-  "Shastri Nagar": [["Tower Circle", 4, "Blue"], ["Railway Station", 5, "Blue"]],
-  "Borkhera": [["Tower Circle", 5, "Green"], ["Kota College", 6, "Green"], ["Kota Bus Stand", 6, "Green"]],
-  "Kota College": [["Borkhera", 6, "Green"], ["Kota University", 7, "Green"]],
-  "Old City": [["Dhanmandi", 6, "Green"], ["Tower Circle", 7, "Green"]],
-  "Sawai Pura": [["Dadabari", 7, "Blue"], ["New Bus Stand", 6, "Blue"]]
+  Dhanmandi: [
+    ["Gumanpura", 3, "Yellow"],
+    ["Old City", 6, "Green"],
+  ],
+  Gumanpura: [
+    ["Dhanmandi", 3, "Yellow"],
+    ["Railway Station", 4, "Yellow"],
+    ["RIBI", 10, "Red"],
+  ],
+  "Railway Station": [
+    ["Gumanpura", 4, "Yellow"],
+    ["Nayapura", 7, "Yellow"],
+    ["Shastri Nagar", 5, "Blue"],
+  ],
+  Nayapura: [
+    ["Railway Station", 7, "Yellow"],
+    ["Chambal Garden", 3, "Yellow"],
+    ["New Bus Stand", 8, "Blue"],
+    ["Aerodrome", 5, "Red"],
+  ],
+  "Chambal Garden": [
+    ["Nayapura", 3, "Yellow"],
+    ["Kota University", 9, "Yellow"],
+  ],
+  "Kota University": [
+    ["Chambal Garden", 9, "Yellow"],
+    ["Industrial Area", 6, "Yellow"],
+    ["Kota College", 7, "Green"],
+  ],
+  "Industrial Area": [
+    ["Kota University", 6, "Yellow"],
+    ["Kota Bus Stand", 5, "Yellow"],
+  ],
+  "Kota Bus Stand": [
+    ["Industrial Area", 5, "Yellow"],
+    ["Kunhadi", 8, "Red"],
+    ["Borkhera", 6, "Green"],
+  ],
+  Kunhadi: [
+    ["Kota Bus Stand", 8, "Red"],
+    ["Aerodrome", 9, "Red"],
+    ["RIBI", 7, "Red"],
+  ],
+  RIBI: [
+    ["Kunhadi", 7, "Red"],
+    ["Gumanpura", 10, "Red"],
+  ],
+  Talwandi: [["Dadabari", 4, "Blue"]],
+  Dadabari: [
+    ["Talwandi", 4, "Blue"],
+    ["New Bus Stand", 5, "Blue"],
+    ["Sawai Pura", 7, "Blue"],
+  ],
+  "New Bus Stand": [
+    ["Dadabari", 5, "Blue"],
+    ["Nayapura", 8, "Blue"],
+    ["Sawai Pura", 6, "Blue"],
+  ],
+  Aerodrome: [
+    ["Nayapura", 5, "Red"],
+    ["Kunhadi", 9, "Red"],
+  ],
+  "Tower Circle": [
+    ["Shastri Nagar", 4, "Blue"],
+    ["Borkhera", 5, "Green"],
+    ["Old City", 7, "Green"],
+  ],
+  "Shastri Nagar": [
+    ["Tower Circle", 4, "Blue"],
+    ["Railway Station", 5, "Blue"],
+  ],
+  Borkhera: [
+    ["Tower Circle", 5, "Green"],
+    ["Kota College", 6, "Green"],
+    ["Kota Bus Stand", 6, "Green"],
+  ],
+  "Kota College": [
+    ["Borkhera", 6, "Green"],
+    ["Kota University", 7, "Green"],
+  ],
+  "Old City": [
+    ["Dhanmandi", 6, "Green"],
+    ["Tower Circle", 7, "Green"],
+  ],
+  "Sawai Pura": [
+    ["Dadabari", 7, "Blue"],
+    ["New Bus Stand", 6, "Blue"],
+  ],
 };
 
 // Populate dropdowns
 const stations = Object.keys(metro);
-const sourceSelect = document.getElementById("source");
-const destSelect = document.getElementById("destination");
-stations.forEach(st => {
-  sourceSelect.add(new Option(st, st));
-  destSelect.add(new Option(st, st));
+stations.forEach((st) => {
+  document.getElementById("source").add(new Option(st, st));
+  document.getElementById("destination").add(new Option(st, st));
 });
 
-// Group by line
+// Group path segments by metro line
 function groupByLine(path, lines) {
   if (path.length === 0) return [];
   let groups = [];
@@ -49,136 +115,117 @@ function groupByLine(path, lines) {
   return groups;
 }
 
-// DFS to find all possible paths
-function findAllPaths(graph, src, dest, visited = new Set(), path = [], lines = [], distance = 0, allPaths = []) {
-  visited.add(src);
+// DFS for all possible routes
+function findAllPaths(
+  graph,
+  src,
+  dest,
+  visited = new Set(),
+  path = [],
+  lines = [],
+  distance = 0,
+  allPaths = []
+) {
   path.push(src);
-
-  if (src === dest) {
+  visited.add(src);
+  if (src === dest)
     allPaths.push({ path: [...path], lines: [...lines], distance });
-  } else {
+  else {
     for (let [neighbor, w, line] of graph[src]) {
       if (!visited.has(neighbor)) {
-        lines.push(line);
-        findAllPaths(graph, neighbor, dest, visited, path, lines, distance + w, allPaths);
-        lines.pop();
+        findAllPaths(
+          graph,
+          neighbor,
+          dest,
+          new Set(visited),
+          [...path],
+          [...lines, line],
+          distance + w,
+          allPaths
+        );
       }
     }
   }
-
   path.pop();
-  visited.delete(src);
 }
 
-// On "Find Route Options" button click
+// Main button
 document.getElementById("findRoute").addEventListener("click", () => {
-  const src = sourceSelect.value, dest = destSelect.value;
+  const src = source.value,
+    dest = destination.value;
   if (src === dest) {
-    document.getElementById("output").innerHTML = "<p>Please choose different stations.</p>";
+    document.getElementById("output").innerHTML =
+      "<p>Please choose different stations.</p>";
     return;
   }
 
   const allPaths = [];
   findAllPaths(metro, src, dest, new Set(), [], [], 0, allPaths);
   if (allPaths.length === 0) {
-    document.getElementById("output").innerHTML = "<p>No route exists between these stations.</p>";
+    document.getElementById("output").innerHTML = "<p>No route found.</p>";
     return;
   }
 
-  document.getElementById("output").innerHTML = `
-  <h3>Choose Route Type</h3>
-  <div class="button-group">
-    <button id="chooseTime">Show Minimum Time Route</button>
-    <button id="chooseFare">Show Minimum Fare Route</button>
-  </div>
-  `;
-
-  document.getElementById("chooseTime").addEventListener("click", () => {
-    renderTopFilteredRoute(src, dest, allPaths, "time");
-  });
-
-  document.getElementById("chooseFare").addEventListener("click", () => {
-    renderTopFilteredRoute(src, dest, allPaths, "fare");
-  });
-});
-
-function renderTopFilteredRoute(src, dest, routes, filterType) {
-  if (!routes.length) return;
-
-  // Define line-based speed & fare factors
+  // Compute realistic fare & time
   const lineFactors = {
-    "Yellow": { speed: 0.9, fare: 2.5 }, // fastest, costliest
-    "Blue": { speed: 1.1, fare: 2.0 },   // moderate speed and fare
-    "Green": { speed: 1.4, fare: 1.5 },  // slower, cheaper
-    "Red": { speed: 1.7, fare: 1.2 }     // slowest, cheapest
+    Yellow: { speed: 0.8, fare: 2.3 },
+    Blue: { speed: 1.0, fare: 2.0 },
+    Green: { speed: 1.1, fare: 1.7 },
+    Red: { speed: 1.2, fare: 1.6 },
   };
 
-  // Compute total time & fare for each route
-  routes.forEach(r => {
+  allPaths.forEach((r) => {
     const groups = groupByLine(r.path, r.lines);
     const lineChanges = groups.length - 1;
-
-    let totalTime = 0;
-    let totalFare = 10; // base fare ₹10
-
-    // Calculate contribution of each line segment
+    let time = 0,
+      fare = 12;
     for (let i = 0; i < r.lines.length; i++) {
-      const line = r.lines[i];
-      const factors = lineFactors[line] || { speed: 1.3, fare: 2.0 };
-
-      const segmentDistance = r.distance / r.lines.length;
-
-      // Slower lines → more time, but cheaper fare
-      totalTime += segmentDistance * factors.speed;
-      totalFare += segmentDistance * factors.fare;
+      const f = lineFactors[r.lines[i]] || { speed: 1, fare: 2 };
+      const d = r.distance / r.lines.length;
+      time += d * f.speed * 2;
+      fare += d * f.fare;
     }
-
-    // Add penalties for interchanges
-    totalTime += lineChanges * 8; // 8 min per line change
-    totalFare += lineChanges * 2; // ₹2 per interchange
-
-    r.totalTime = totalTime;
-    r.fare = Math.ceil(totalFare);
+    r.time = parseFloat((time + lineChanges * 5).toFixed(1));
+    r.fare = Math.round(fare + lineChanges * 3);
   });
 
-  // Sort depending on user choice
-  if (filterType === "time") {
-    routes.sort((a, b) => a.totalTime - b.totalTime);
-  } else {
-    routes.sort((a, b) => a.fare - b.fare);
-  }
+  // Balanced route: time + interchange penalty
+  // Sort by (time + interchange penalty)
+  allPaths.sort(
+    (a, b) =>
+      a.time +
+      (groupByLine(a.path, a.lines).length - 1) * 8 -
+      (b.time + (groupByLine(b.path, b.lines).length - 1) * 8)
+  );
 
-  const bestRoute = routes[0];
-  const groups = groupByLine(bestRoute.path, bestRoute.lines);
-  const lineChanges = groups.length - 1;
+  // Pick top 3 routes (if available)
+  const topRoutes = allPaths.slice(0, 3);
 
-  // Generate route HTML
-  const title =
-    filterType === "time"
-      ? "⚡ Fastest Route (Minimum Time)"
-      : "💰 Cheapest Route (Minimum Fare)";
-
-  const routeHtml = groups
-    .map(
-      g =>
-        `<p class="line-group ${g.line}"><b>${g.line} Line:</b> ${g.stations.join(" → ")}</p>`
-    )
-    .join("");
-
-  const html = `
-    <h3>${title} from ${src} to ${dest}</h3>
+  // Create HTML for all 3
+  let html = `<h3>🚇 Top ${topRoutes.length} Optimized Routes from ${src} to ${dest}</h3>`;
+  topRoutes.forEach((r, i) => {
+    const g = groupByLine(r.path, r.lines);
+    html += `
     <div class="route-result">
-      ${routeHtml}
-      <p><b>Total Travel Time:</b> ${bestRoute.totalTime.toFixed(1)} min</p>
-      <p><b>Estimated Fare:</b> ₹${bestRoute.fare}</p>
-      <p><b>Total Line Changes:</b> ${lineChanges}</p>
+      <h4>Option ${i + 1}</h4>
+      ${g
+        .map(
+          (gr) =>
+            `<p class="line-group ${gr.line}"><b>${
+              gr.line
+            } Line:</b> ${gr.stations.join(" → ")}</p>`
+        )
+        .join("")}
+      <p><b>Total Travel Time:</b> ${r.time} min</p>
+      <p><b>Estimated Fare:</b> ₹${r.fare}</p>
+      <p><b>Total Line Changes:</b> ${g.length - 1}</p>
     </div>
   `;
-
+  });
   document.getElementById("output").innerHTML = html;
-  document.getElementById("output").scrollIntoView({ behavior: "smooth" });
-}
-// Predefined interchange stations and their lines
+});
+
+// Interchange panel
 const interchangeStations = [
   { name: "Dhanmandi", lines: ["Yellow", "Green"] },
   { name: "Gumanpura", lines: ["Yellow", "Red"] },
@@ -186,33 +233,22 @@ const interchangeStations = [
   { name: "Nayapura", lines: ["Yellow", "Blue", "Red"] },
   { name: "Kota University", lines: ["Yellow", "Green"] },
   { name: "Kota Bus Stand", lines: ["Yellow", "Green", "Red"] },
-  { name: "Tower Circle", lines: ["Blue", "Green"] }
+  { name: "Tower Circle", lines: ["Blue", "Green"] },
 ];
-
-// Handle Interchange Button (Slide In/Out)
 document.getElementById("showInterchanges").addEventListener("click", () => {
-  const panel = document.getElementById("interchangePanel");
-  panel.classList.toggle("active");
-
-  if (panel.classList.contains("active")) {
-    const listContainer = document.getElementById("interchangeList");
-    if (listContainer.innerHTML.trim() === "") {
-      listContainer.innerHTML = interchangeStations
-        .map(
-          st => `
-          <div class="interchange-item">
-            <b>${st.name}</b><br>
-            Lines: ${st.lines
-              .map(line => `<span class="${line}">${line}</span>`)
-              .join(", ")}
-          </div>`
-        )
-        .join("");
-    }
-}
+  document.getElementById("interchangePanel").classList.toggle("active");
+  const list = document.getElementById("interchangeList");
+  if (!list.innerHTML) {
+    list.innerHTML = interchangeStations
+      .map(
+        (st) =>
+          `<div class="interchange-item"><b>${st.name}</b><br>Lines: ${st.lines
+            .map((l) => `<span class="${l}">${l}</span>`)
+            .join(", ")}</div>`
+      )
+      .join("");
+  }
 });
-
-// Close button for panel
 document.getElementById("closeInterchanges").addEventListener("click", () => {
   document.getElementById("interchangePanel").classList.remove("active");
 });
