@@ -1,0 +1,214 @@
+body {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  background: #f4f6fb;
+  color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.container {
+  background: #ffffff;
+  border-radius: 14px 0 0 14px; /* flat on right side */
+  padding: 40px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  width: 420px;
+  text-align: center;
+  transition: 0.3s ease;
+}
+.container:hover {
+  transform: translateY(-5px);
+}
+
+h1 {
+  color: #0078d4;
+  margin-bottom: 25px;
+  font-size: 2rem;
+}
+
+label {
+  display: block;
+  text-align: left;
+  margin-top: 10px;
+  color: #444;
+  font-weight: 600;
+}
+select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background: #f9f9f9;
+  margin-top: 5px;
+}
+select:focus {
+  border-color: #0078d4;
+  outline: none;
+}
+
+#findRoute {
+  margin-top: 20px;
+  width: 100%;
+  padding: 12px;
+  background: #0078d4;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+#findRoute:hover {
+  background: #005fa3;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 20px;
+}
+.button-group button {
+  flex: 1;
+  border: none;
+  border-radius: 8px;
+  padding: 10px;
+  background: #f1f1f1;
+  cursor: pointer;
+  font-weight: 600;
+}
+.button-group button:hover {
+  background: #0078d4;
+  color: white;
+}
+
+.output {
+  background: #fafafa;
+  border-radius: 8px;
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px solid #e4e4e4;
+}
+
+.route-result {
+  border-left: 5px solid #0078d4;
+  background: white;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 8px;
+}
+.line-group {
+  font-weight: 500;
+  margin: 5px 0;
+}
+.Yellow { color: #d4af37; border-left-color: #d4af37; }
+.Red { color: #c1121f; border-left-color: #c1121f; }
+.Blue { color: #0077b6; border-left-color: #0077b6; }
+.Green { color: #2e8b57; border-left-color: #2e8b57; }
+
+@media (max-width: 600px) {
+  .container { width: 90%; padding: 25px; }
+}
+
+/* Tablet responsiveness */
+@media (max-width: 900px) {
+  h1 {
+    font-size: 1.8rem;
+  }
+  .container {
+    width: 80%;
+    padding: 30px;
+  }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 600px) {
+  .container {
+    width: 90%;
+    padding: 20px;
+  }
+  h1 {
+    font-size: 1.5rem;
+  }
+  .button-group {
+    flex-direction: column;
+  }
+  .button-group button {
+    width: 100%;
+  }
+}
+
+/* Small hamburger-style button */
+#showInterchanges {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: #0078d4;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 10px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1.2rem;
+  transition: 0.3s;
+}
+#showInterchanges:hover {
+  background: #005fa3;
+}
+
+/* Adjust container for relative positioning */
+.container {
+  position: relative;
+  background: #ffffff;
+  border-radius: 14px 0 0 14px;
+  padding: 40px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  width: 420px;
+  text-align: center;
+  transition: 0.3s ease;
+}
+.container:hover {
+  transform: translateY(-5px);
+}
+/* Interchange panel that pops out just to the right of the .output box with same height, slightly shifted upward */
+.interchange-slide {
+  position: absolute;
+  top: calc(100% - 620px); /* starts slightly higher than before */
+  left: calc(50% + 250px); /* positioned next to the .output box */
+  width: 0;
+  height: 390px; /* matches approximate height of .output box */
+  background: #ffffff;
+  box-shadow: 4px 0 15px rgba(0, 0, 0, 0.25);
+  border-left: 3px solid #0078d4;
+  border-radius: 0 14px 14px 0;
+  overflow-y: auto;
+  padding: 0;
+  transform-origin: left center;
+  transform: scaleX(0);
+  transition: transform 0.4s ease, width 0.4s ease, padding 0.3s ease;
+  z-index: 20;
+}
+/* When active, the panel pops out aligned with .output box */
+.interchange-slide.active {
+  width: 250px;
+  padding: 15px;
+  transform: scaleX(1);
+}
+
+.interchange-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+#closeInterchanges {
+  background: transparent;
+  border: none;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #0078d4;
+  cursor: pointer;
+}

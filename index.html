@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kota Metro Route Finder</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="main-layout">
+        <div class="container">
+            <h1>🚇 Kota Metro Route Finder</h1>
+            <button id="showInterchanges" title="View Interchanges">☰</button>
+            <div class="form">
+                <label for="source">Source Station:</label>
+                <select id="source"></select>
+
+                <label for="destination">Destination Station:</label>
+                <select id="destination"></select>
+
+                <button id="findRoute">Find Route Options</button>
+            </div>
+
+            <div id="output" class="output"></div>
+        </div>
+       <div id="interchangePanel" class="interchange-slide">
+            <div class="interchange-header">
+                <h3>Interchange Stations</h3>
+                <button id="closeInterchanges">✕</button>
+            </div>
+            <div id="interchangeList" class="interchange-list"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
